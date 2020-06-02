@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "NodeHeap.h"
 
 int main() {
 
@@ -28,7 +29,9 @@ int main() {
         std::cout << std::endl;
     }
 
-    
+    NodeHeap heap;
+
+    addElement(heap, &world[1][1], 4);
 
     return 0;
 }

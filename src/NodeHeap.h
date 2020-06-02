@@ -9,4 +9,6 @@ struct NodeHeap {
 
 void addElement(NodeHeap& heap, std::string* element, int fcost);
 
+void sortUp(NodeHeap& heap);
+
 #endif
