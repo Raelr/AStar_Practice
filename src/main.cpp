@@ -31,7 +31,21 @@ int main() {
 
     NodeHeap heap;
 
-    addElement(heap, &world[1][1], 4);
+    addElement(heap, &world[1][1], 4, 1, 1);
+    addElement(heap, &world[2][1], 2, 2, 1);
+    addElement(heap, &world[1][3], 2, 1, 3);
+
+    NodeData node = pop(heap);
+
+    world[std::get<0>(node.coordinates)][std::get<1>(node.coordinates)] = "*";
+
+    for (size_t x = 0; x < numberOfRows; x++) {
+        auto& row = world[x];
+        for (size_t y = 0; y < numberofColumns; y++) {
+            std::cout << row[y] + " ";
+        }
+        std::cout << std::endl;
+    }
 
     return 0;
 }
