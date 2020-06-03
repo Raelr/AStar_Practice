@@ -36,7 +36,7 @@ int main() {
 
     addElement(heap, 4, 1, 1);
     addElement(heap, 2, 2, 1);
-    addElement(heap, 2, 1, 3);
+    addElement(heap, 3, 1, 3);
 
     auto node = removeFirst(heap);
 
@@ -49,6 +49,5 @@ int main() {
         }
         std::cout << std::endl;
     }
-
     return 0;
 }

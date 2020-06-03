@@ -31,6 +31,16 @@ void sortUp(NodeHeap& heap) {
 
 std::tuple<int, int> removeFirst(NodeHeap& heap) {
     std::tuple<int, int> firstCoords = heap.coordinates[0];
+    heap.coordinates.front() = std::move(heap.coordinates.back());
+    heap.coordinates.pop_back();
+
+    std::cout << "First element used to be: " << std::get<0>(firstCoords) << ", " 
+            << std::get<1>(firstCoords) << std::endl;
+
+    std::cout << "coords is now size: " << heap.coordinates.size() << std::endl;
+
+    std::cout << "First element is now: " << std::get<0>(heap.coordinates.front()) << ", " 
+            << std::get<1>(heap.coordinates.front()) << std::endl;
 
     return firstCoords;
 }
