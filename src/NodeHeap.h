@@ -4,19 +4,14 @@
 #include <vector>
 
 struct NodeHeap {
-    std::vector<std::tuple<std::string*, int>> elements;
+    std::vector<int> elements;
     std::vector<std::pair<int, int>> coordinates;
 };
 
-struct NodeData {
-    std::tuple<int, int> coordinates;
-    std::string* element;
-};
-
-void addElement(NodeHeap& heap, std::string* element, int fcost, int x, int y);
+void addElement(NodeHeap& heap, int fcost, int x, int y);
 
 void sortUp(NodeHeap& heap);
 
-NodeData pop(NodeHeap& heap);
+std::tuple<int, int> removeFirst(NodeHeap& heap);
 
 #endif

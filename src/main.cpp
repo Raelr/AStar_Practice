@@ -31,13 +31,16 @@ int main() {
 
     NodeHeap heap;
 
-    addElement(heap, &world[1][1], 4, 1, 1);
-    addElement(heap, &world[2][1], 2, 2, 1);
-    addElement(heap, &world[1][3], 2, 1, 3);
+    world[1][1] = "S";
+    world[4][8] = "E";
 
-    NodeData node = pop(heap);
+    addElement(heap, 4, 1, 1);
+    addElement(heap, 2, 2, 1);
+    addElement(heap, 2, 1, 3);
 
-    world[std::get<0>(node.coordinates)][std::get<1>(node.coordinates)] = "*";
+    auto node = removeFirst(heap);
+
+    world[std::get<0>(node)][std::get<1>(node)] = "*";
 
     for (size_t x = 0; x < numberOfRows; x++) {
         auto& row = world[x];
