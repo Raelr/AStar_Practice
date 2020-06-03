@@ -4,14 +4,21 @@
 #include <vector>
 
 struct NodeHeap {
-    std::vector<int> elements;
+    std::vector<int> fCosts;
     std::vector<std::pair<int, int>> coordinates;
 };
 
 void addElement(NodeHeap& heap, int fcost, int x, int y);
 
 void sortUp(NodeHeap& heap);
+void sortDown(NodeHeap& heap);
 
 std::tuple<int, int> removeFirst(NodeHeap& heap);
+
+bool isInBounds(int index, int size);
+bool contains(NodeHeap& heap, std::pair<int, int>&);
+bool size(NodeHeap& heap);
+
+void updateHeap(NodeHeap& heap);
 
 #endif

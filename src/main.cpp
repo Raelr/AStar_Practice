@@ -37,6 +37,7 @@ int main() {
     addElement(heap, 4, 1, 1);
     addElement(heap, 2, 2, 1);
     addElement(heap, 3, 1, 3);
+    addElement(heap, 1, 1, 4);
 
     auto node = removeFirst(heap);
 
