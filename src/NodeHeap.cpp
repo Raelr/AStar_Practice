@@ -13,6 +13,19 @@ bool isInBounds(int index, int size) {
     return (index >= 0) && (index < size);
 }
 
+bool contains(const NodeHeap& heap,int x,int y) {
+    bool found = false;
+    for (size_t i = 0; i < heap.coordinates.size(); i++) {
+        if (x == std::get<0>(heap.coordinates[i]) && 
+            y == std::get<1>(heap.coordinates[i])) {
+            
+            found = true;
+            break;
+        }        
+    }
+    return found;
+}
+
 void updateHeap(NodeHeap& heap) {
     sortUp(heap);
 }

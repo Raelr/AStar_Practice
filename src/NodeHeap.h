@@ -16,7 +16,7 @@ void sortDown(NodeHeap& heap);
 std::tuple<int, int> removeFirst(NodeHeap& heap);
 
 bool isInBounds(int index, int size);
-bool contains(NodeHeap& heap, std::pair<int, int>&);
+bool contains(const NodeHeap& heap, int x, int y);
 bool size(NodeHeap& heap);
 
 void updateHeap(NodeHeap& heap);
