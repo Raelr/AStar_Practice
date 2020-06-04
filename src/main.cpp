@@ -31,24 +31,23 @@ int main() {
 
     NodeHeap heap;
 
-    world[1][1] = "S";
-    world[4][8] = "E";
+    // ------------------------------------------------------
+    // ------------------- ALGORITHM ------------------------
+    // ------------------------------------------------------
 
-    addElement(heap, 4, 1, 1);
-    addElement(heap, 2, 2, 1);
-    addElement(heap, 3, 1, 3);
-    addElement(heap, 1, 1, 4);
+    /*
+        1. Define start and end points. 
+        2. Add the start node to the heap. 
+        3. Start the loop -> check if the current node is equal to the end node.
+            a. If current node == end node, then break. 
+            b. Else continue.
+        4. Get current node from top of heap.  
+        5. Get it's neighbours. 
+        6. Calculate their fcosts. 
+        7. Add them to the heap. 
+        8. Register current node as their parent. 
+        9. Keep going with the loop. 
+    */
 
-    auto node = removeFirst(heap);
-
-    world[std::get<0>(node)][std::get<1>(node)] = "*";
-
-    for (size_t x = 0; x < numberOfRows; x++) {
-        auto& row = world[x];
-        for (size_t y = 0; y < numberofColumns; y++) {
-            std::cout << row[y] + " ";
-        }
-        std::cout << std::endl;
-    }
     return 0;
 }
