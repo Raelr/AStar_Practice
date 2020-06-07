@@ -21,7 +21,10 @@ int main() {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
     };
 
-    int indices[6][10] = {0};
+    int** indices = new int* [numberOfRows];
+    for (size_t i = 0; i < numberOfRows; i++) {
+        indices[i] = new int[numberofColumns];
+    }
 
     for (size_t x = 0; x < numberOfRows; x++) {
         auto& row = world[x];
@@ -33,6 +36,13 @@ int main() {
     }
 
     NodeHeap heap;
+    heap.indices = indices;
+
+    addElement(heap, 2, 1, 1);
+
+    addElement(heap, 1, 1, 2);
+
+    addElement(heap, 3, 2, 1);
 
     // ------------------------------------------------------
     // ------------------- ALGORITHM ------------------------
