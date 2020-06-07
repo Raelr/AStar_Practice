@@ -1,3 +1,16 @@
+/*
+    This file defines the signature of the NodeHeap. 
+    The NodeHeap is a highly specialised data structure which stores and sorts nodes by their
+    fcost. 
+
+    The NodeHeap keeps track of nodes via three collections:
+    1.  fCosts collection - sorts and tracks all fCosts. This will be used to find the highest
+        priority node. 
+    2.  coordinates - Keeps track of the coordinates of the fCost nodes. Will be used to get 
+        the lowest fCost node's coordinates.
+    3.  indices - a 2D array which keeps track of the indices of every element in the heap. 
+*/
+
 #ifndef NODE_HEAP_H
 #define NODE_HEAP_H
 
