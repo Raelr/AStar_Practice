@@ -21,9 +21,12 @@ int main() {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
     };
 
+    int indices[6][10] = {0};
+
     for (size_t x = 0; x < numberOfRows; x++) {
         auto& row = world[x];
         for (size_t y = 0; y < numberofColumns; y++) {
+            indices[x][y] = -1;
             std::cout << row[y] + " ";
         }
         std::cout << std::endl;
