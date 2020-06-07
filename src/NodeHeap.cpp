@@ -14,18 +14,8 @@ bool isInBounds(int index, int size) {
     return (index >= 0) && (index < size);
 }
 
-bool contains(const NodeHeap& heap,int x,int y, int idx) {
-    
-    bool found = false;
-
-    if (idx != -1 && (idx >= 0 && idx < heap.fCosts.size())) {
-        if (std::get<0>(heap.coordinates[idx]) == x &&
-            std::get<1>(heap.coordinates[idx]) == y) {
-                found = true;
-        }
-    }
-
-    return found;
+bool contains(const NodeHeap& heap,int x,int y) {
+    return heap.indices[x][y] != -1;
 }
 
 void updateHeap(NodeHeap& heap) {
