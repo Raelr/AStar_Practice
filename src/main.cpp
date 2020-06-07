@@ -1,5 +1,10 @@
 /*
     Small attempt to write an A* implementation in C++
+    This implementation is going to TRY and use a procedural approach (avoid classes and use 
+    structs + functions). 
+
+    We'll be trying to use arrays for the most part and may try to remove all dependencies on
+    STL types such as Vectors. Why? Because why not!
 */
 
 #include <iostream>
@@ -8,9 +13,11 @@
 
 int main() {
 
+    // Define the number of rows and columns. 
     size_t numberOfRows  = 6;
     size_t numberofColumns = 10;
 
+    // Keep in mind the world coordinates start on the top left. 
     std::string world[6][10] = {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
         {"|", " ", "|", " ", "|", " ", " ", " ", " ", "|"},
@@ -20,11 +27,16 @@ int main() {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
     };
 
+    // Define a 2D array to be entered into the NodeHeap class.
+    // TODO: Add an 'init' method which can handle this for us. 
     int** indices = new int* [numberOfRows];
+
+    // Allocate memory for the arrays within the index array, 
     for (size_t i = 0; i < numberOfRows; i++) {
         indices[i] = new int[numberofColumns];
     }
 
+    // TODO: Move this into the nodeHeap file. 
     for (size_t x = 0; x < numberOfRows; x++) {
         auto& row = world[x];
         for (size_t y = 0; y < numberofColumns; y++) {
@@ -34,9 +46,13 @@ int main() {
         std::cout << std::endl;
     }
 
+    // Create our heap for sorting fcosts. 
+    // TODO: Create initialisatiion method. 
     NodeHeap heap;
     heap.indices = indices;
 
+    // --- rest of algorithm ---
+    
     addElement(heap, 2, 1, 1);
 
     addElement(heap, 1, 1, 2);
