@@ -15,25 +15,43 @@
 #define NODE_HEAP_H
 
 #include <vector>
-
+// The NodeHeap struct - used to organise node fcosts. 
 struct NodeHeap {
+    // List of fCosts - the collection used to calculate node priorities. 
     std::vector<int> fCosts;
+    // List of coordinates - returned to algorithm and can be used to find indices. 
     std::vector<std::pair<int, int>> coordinates;
+    // 2D array of indices - used to find a node's index. 
     int** indices;
 };
 
+// Adds an element to the heap - allocates an index to the element
+// and then sorts the element based on the inputted fcost. 
 void addElement(NodeHeap& heap, int fcost, int x, int y);
 
+// Sorts the heap from the bottom - i.e the latest element inputted. Generally called in the
+// addElement method. 
 void sortUp(NodeHeap& heap);
+
+// Sorts the heap from the top - the element in position 0. 
+// Generally called in the removeFirst method. 
 void sortDown(NodeHeap& heap);
 
+// Removes and returns the first element. The element is then replaced with the last element in 
+// the collection. The heap is then sorted again using the sortDown method. 
+// TODO: Replace tuple with a simple struct. Tuples are too verbose. 
 std::tuple<int, int> removeFirst(NodeHeap& heap);
 
+// Checks whether an index is valid for a collection. 
 bool isInBounds(int index, int size);
+// Checks whether a node coordinate exists in the heap.
+// i.e: the index is not registered as 0.
 bool contains(const NodeHeap& heap, int x, int y);
+// Returns the size of the heap. 
 bool size(NodeHeap& heap);
-
+// Will sort the heap if any changes are made. 
 void updateHeap(NodeHeap& heap);
+// Prints all the indices registered in the heap (for debugging purposes). 
 void printIndices(NodeHeap& heap, int rows, int columns);
 
 #endif
