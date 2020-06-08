@@ -153,3 +153,22 @@ void printIndices(NodeHeap& heap, int rows, int columns) {
         std::cout << std::endl;
     }
 }
+
+NodeHeap init(int rows, int columns) {
+    NodeHeap heap;
+
+    int** indices = new int* [rows];
+
+    // Allocate memory for the arrays within the index array, 
+    for (size_t x = 0; x < rows; x++) {
+        indices[x] = new int[columns];
+        auto& row = indices[x];
+        for (size_t y = 0; y < columns; y++) {
+            indices[x][y] = -1;
+        }
+    }
+
+    heap.indices = indices;
+
+    return heap;
+}

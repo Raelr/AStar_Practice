@@ -54,4 +54,6 @@ void updateHeap(NodeHeap& heap);
 // Prints all the indices registered in the heap (for debugging purposes). 
 void printIndices(NodeHeap& heap, int rows, int columns);
 
+NodeHeap init(int rows, int columns);
+
 #endif

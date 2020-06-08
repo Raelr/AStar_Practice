@@ -11,7 +11,9 @@
 #include <string>
 #include "NodeHeap.h"
 
-void printWorld(const std::string** world, int rows, int columns) {
+const int MAX_COLUMNS = 10;
+
+void printWorld(std::string world[][MAX_COLUMNS], int rows, int columns) {
     for (size_t x = 0; x < rows; x++) {
         auto& row = world[x];
         for (size_t y = 0; y < columns; y++) {
@@ -37,36 +39,13 @@ int main() {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
     };
 
-    // Define a 2D array to be entered into the NodeHeap class.
-    // TODO: Add an 'init' method which can handle this for us. 
-    int** indices = new int* [numberOfRows];
-
-    // Allocate memory for the arrays within the index array, 
-    for (size_t i = 0; i < numberOfRows; i++) {
-        indices[i] = new int[numberofColumns];
-    }
-
-    // TODO: Move this into the nodeHeap file. 
-    for (size_t x = 0; x < numberOfRows; x++) {
-        auto& row = world[x];
-        for (size_t y = 0; y < numberofColumns; y++) {
-            indices[x][y] = -1;
-            std::cout << row[y] + " ";
-        }
-        std::cout << std::endl;
-    }
-
-    // Create our heap for sorting fcosts. 
-    // TODO: Create initialisatiion method. 
-    NodeHeap heap;
-    heap.indices = indices;
+    NodeHeap heap = init(numberOfRows, numberofColumns);
+    printWorld(world, numberOfRows, numberofColumns);
 
     // --- rest of algorithm ---
 
     addElement(heap, 2, 1, 1);
-
     addElement(heap, 1, 1, 2);
-
     addElement(heap, 3, 2, 1);
 
     // ------------------------------------------------------
