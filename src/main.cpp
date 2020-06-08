@@ -39,14 +39,8 @@ int main() {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
     };
 
-    NodeHeap heap = init(numberOfRows, numberofColumns);
+    NodeHeap::NodeHeap heap = NodeHeap::init(numberOfRows, numberofColumns);
     printWorld(world, numberOfRows, numberofColumns);
-
-    // --- rest of algorithm ---
-
-    addElement(heap, 2, 1, 1);
-    addElement(heap, 1, 1, 2);
-    addElement(heap, 3, 2, 1);
 
     // ------------------------------------------------------
     // ------------------- ALGORITHM ------------------------
