@@ -11,6 +11,16 @@
 #include <string>
 #include "NodeHeap.h"
 
+void printWorld(const std::string** world, int rows, int columns) {
+    for (size_t x = 0; x < rows; x++) {
+        auto& row = world[x];
+        for (size_t y = 0; y < columns; y++) {
+            std::cout << row[y] + " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
 int main() {
 
     // Define the number of rows and columns. 
@@ -52,7 +62,7 @@ int main() {
     heap.indices = indices;
 
     // --- rest of algorithm ---
-    
+
     addElement(heap, 2, 1, 1);
 
     addElement(heap, 1, 1, 2);
