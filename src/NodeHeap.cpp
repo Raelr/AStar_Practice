@@ -10,7 +10,10 @@
 void addElement(NodeHeap& heap,int fcost, int x, int y) {
     // Add the node to the end of the heap. 
     heap.fCosts.emplace_back(fcost);
-    heap.coordinates.emplace_back(std::pair<int, int>(x, y));
+    Coordinates newCoords;
+    newCoords.x = x;
+    newCoords.y = y;
+    heap.coordinates.emplace_back(newCoords);
     heap.indices[x][y] = heap.coordinates.size() - 1;
     std::cout << "Added new element to heap! Heap is now size: " << heap.fCosts.size() 
             << std::endl;
@@ -59,8 +62,8 @@ void sortUp(NodeHeap& heap) {
             std::iter_swap(heap.coordinates.begin() + item_idx, heap.coordinates.begin() + parent_idx);
 
             // Swap the index values. 
-            heap.indices[std::get<0>(heap.coordinates[item_idx])][std::get<1>(heap.coordinates[item_idx])] = item_idx;
-            heap.indices[std::get<0>(heap.coordinates[parent_idx])][std::get<1>(heap.coordinates[parent_idx])] = parent_idx;
+            heap.indices[heap.coordinates[item_idx].x][heap.coordinates[item_idx].y] = item_idx;
+            heap.indices[heap.coordinates[parent_idx].x][heap.coordinates[parent_idx].y] = parent_idx;
 
             item_idx = parent_idx;
         } else {
@@ -75,11 +78,10 @@ void sortUp(NodeHeap& heap) {
 
 // Removes and returns the first element. The element is then replaced with the last element in 
 // the collection. The heap is then sorted again using the sortDown method. 
-// TODO: Replace tuple with a simple struct. Tuples are too verbose.
-std::tuple<int, int> removeFirst(NodeHeap& heap) {
-    std::tuple<int, int> firstCoords = heap.coordinates.front();
+Coordinates removeFirst(NodeHeap& heap) {
+    Coordinates firstCoords = heap.coordinates.front();
     // Update the index of the first element to -1 since it no longer lives in the heap. 
-    heap.indices[std::get<0>(firstCoords)][std::get<1>(firstCoords)] = -1;
+    heap.indices[firstCoords.x][firstCoords.y] = -1;
     
     // Move the values at the back to the front and reduce the size of the array. 
     heap.coordinates.front() = std::move(heap.coordinates.back());
@@ -87,16 +89,16 @@ std::tuple<int, int> removeFirst(NodeHeap& heap) {
     heap.fCosts.front() = std::move(heap.fCosts.back());
     heap.fCosts.pop_back();
 
-    std::cout << "First element used to be: " << std::get<0>(firstCoords) << ", " 
-            << std::get<1>(firstCoords) << std::endl;
+    std::cout << "First element used to be: " << firstCoords.x << ", " 
+            << firstCoords.y << std::endl;
 
     std::cout << "coords is now size: " << heap.coordinates.size() << std::endl;
     
     // Sort from the top (since the last element has been placed at the front of the heap).
     sortDown(heap);
 
-    std::cout << "First element is now: " << std::get<0>(heap.coordinates.front()) << ", " 
-            << std::get<1>(heap.coordinates.front()) << std::endl;
+    std::cout << "First element is now: " << heap.coordinates.front().x << ", " 
+            << heap.coordinates.front().y << std::endl;
 
     // return the first coordinates. 
     return firstCoords;
@@ -129,8 +131,8 @@ void sortDown(NodeHeap& heap) {
                 std::iter_swap(heap.fCosts.begin() + index, heap.fCosts.begin() + swapIndex);
                 std::iter_swap(heap.coordinates.begin() + index, heap.coordinates.begin() + swapIndex);
                 // Replace their indices.
-                heap.indices[std::get<0>(heap.coordinates[swapIndex])][std::get<1>(heap.coordinates[swapIndex])] = swapIndex;
-                heap.indices[std::get<0>(heap.coordinates[index])][std::get<1>(heap.coordinates[index])] = index;
+                heap.indices[heap.coordinates[swapIndex].x][heap.coordinates[swapIndex].y] = swapIndex;
+                heap.indices[heap.coordinates[index].x][heap.coordinates[index].y] = index;
                 // Update the index and keep going. 
                 index = swapIndex;
             } else {

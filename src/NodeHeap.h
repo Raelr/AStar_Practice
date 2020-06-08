@@ -15,12 +15,21 @@
 #define NODE_HEAP_H
 
 #include <vector>
+
+// TODO: Namespace the NodeHeap methods for differentiation.
+
+// Stores the x and y values of specific coordinates.
+struct Coordinates {
+    int x;
+    int y;
+};
+
 // The NodeHeap struct - used to organise node fcosts. 
 struct NodeHeap {
     // List of fCosts - the collection used to calculate node priorities. 
     std::vector<int> fCosts;
     // List of coordinates - returned to algorithm and can be used to find indices. 
-    std::vector<std::pair<int, int>> coordinates;
+    std::vector<Coordinates> coordinates;
     // 2D array of indices - used to find a node's index. 
     int** indices;
 };
@@ -39,8 +48,7 @@ void sortDown(NodeHeap& heap);
 
 // Removes and returns the first element. The element is then replaced with the last element in 
 // the collection. The heap is then sorted again using the sortDown method. 
-// TODO: Replace tuple with a simple struct. Tuples are too verbose. 
-std::tuple<int, int> removeFirst(NodeHeap& heap);
+Coordinates removeFirst(NodeHeap& heap);
 
 // Checks whether an index is valid for a collection. 
 bool isInBounds(int index, int size);
