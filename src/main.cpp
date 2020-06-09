@@ -57,16 +57,44 @@ int main() {
         NodeHeap::createCoordinates(-1, 0), NodeHeap::createCoordinates(1, 0),
         NodeHeap::createCoordinates(0, -1), NodeHeap::createCoordinates(0, 1)};
 
-    auto firstCoord = NodeHeap::removeFirst(heap);
+    NodeHeap::Coordinates currentCoord = NodeHeap::createCoordinates(0, 0);
+
+    // while (currentCoord.x != goal.x || currentCoord.y != goal.y) {
+        
+    //     currentCoord = NodeHeap::removeFirst(heap);
+
+    //     std::cout << currentCoord.x << ", " << currentCoord.y << std::endl;
+
+    //     for (size_t i = 0; i < numDirections; i++) {
+    //         int coord_x = currentCoord.x + directions[i].x;
+    //         int coord_y = currentCoord.y + directions[i].y;
+
+    //         if ((coord_x >= 0 || coord_x < numberOfColumns) 
+    //             && (coord_y >= 0 || coord_y < numberOfRows)) {
+                
+    //             if (world[coord_x][coord_y] != "|" || world[coord_x][coord_y] != "-") {
+    //                 int gCost = 1; 
+    //                 int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+    //                 int fCost = gCost * hCost;
+    //                 NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+    //             }
+    //         }
+    //     }
+    //     std::cout << "Current coordinate: " << currentCoord.x << ", " << currentCoord.y << std::endl;
+    //     world[currentCoord.x][currentCoord.y] = "x";
+    //     currentCoord = NodeHeap::removeFirst(heap);
+    // }
+
+    currentCoord = NodeHeap::removeFirst(heap);
 
     for (size_t i = 0; i < numDirections; i++) {
-        int coord_x = firstCoord.x + directions[i].x;
-        int coord_y = firstCoord.y + directions[i].y;
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
 
         if ((coord_x >= 0 || coord_x < numberOfColumns) 
             && (coord_y >= 0 || coord_y < numberOfRows)) {
             
-            if (world[coord_x][coord_y] != "|" || world[coord_x][coord_y] != "-") {
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
                 int gCost = 1; 
                 int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
                 int fCost = gCost * hCost;
@@ -75,7 +103,248 @@ int main() {
         }
     }
 
-    NodeHeap::printIndices(heap, numberOfRows, numberOfColumns);
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+
+            std::cout << (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) << std::endl;
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+
+            std::cout << (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) << std::endl;
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+
+            std::cout << (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) << std::endl;
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+
+            std::cout << (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) << std::endl;
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = currentCoord.x + directions[i].x;
+        int coord_y = currentCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+
+            std::cout << (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) << std::endl;
+            
+            if (world[coord_x][coord_y].find('|') == std::string::npos && world[coord_x][coord_y].find('-') == std::string::npos) {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    world[currentCoord.x][currentCoord.y] = "x";
+    currentCoord = NodeHeap::removeFirst(heap);
+
+    printWorld(world, numberOfRows, numberOfColumns);
 
     // ------------------------------------------------------
     // ------------------- ALGORITHM ------------------------
