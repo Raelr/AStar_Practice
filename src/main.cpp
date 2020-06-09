@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include "NodeHeap.h"
+#include <cmath>
 
 const int MAX_COLUMNS = 10;
 
@@ -27,7 +28,7 @@ int main() {
 
     // Define the number of rows and columns. 
     size_t numberOfRows  = 6;
-    size_t numberofColumns = 10;
+    size_t numberOfColumns = 10;
 
     // Keep in mind the world coordinates start on the top left. 
     std::string world[6][10] = {
@@ -39,8 +40,42 @@ int main() {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
     };
 
-    NodeHeap::NodeHeap heap = NodeHeap::init(numberOfRows, numberofColumns);
-    printWorld(world, numberOfRows, numberofColumns);
+    NodeHeap::NodeHeap heap = NodeHeap::init(numberOfRows, numberOfColumns);
+
+    world[1][1] = "S";
+    world[4][8] = "E";
+
+    printWorld(world, numberOfRows, numberOfColumns);
+
+    NodeHeap::Coordinates goal = NodeHeap::createCoordinates(4,8);
+
+    NodeHeap::addElement(heap, 0, 1, 1);
+
+    size_t numDirections = 4;
+
+    NodeHeap::Coordinates directions[4] = {
+        NodeHeap::createCoordinates(-1, 0), NodeHeap::createCoordinates(1, 0),
+        NodeHeap::createCoordinates(0, -1), NodeHeap::createCoordinates(0, 1)};
+
+    auto firstCoord = NodeHeap::removeFirst(heap);
+
+    for (size_t i = 0; i < numDirections; i++) {
+        int coord_x = firstCoord.x + directions[i].x;
+        int coord_y = firstCoord.y + directions[i].y;
+
+        if ((coord_x >= 0 || coord_x < numberOfColumns) 
+            && (coord_y >= 0 || coord_y < numberOfRows)) {
+            
+            if (world[coord_x][coord_y] != "|" || world[coord_x][coord_y] != "-") {
+                int gCost = 1; 
+                int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
+                int fCost = gCost * hCost;
+                NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+            }
+        }
+    }
+
+    NodeHeap::printIndices(heap, numberOfRows, numberOfColumns);
 
     // ------------------------------------------------------
     // ------------------- ALGORITHM ------------------------

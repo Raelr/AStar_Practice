@@ -105,6 +105,13 @@ namespace NodeHeap {
         return firstCoords;
     }
 
+    Coordinates createCoordinates(int &&x, int &&y) {
+        Coordinates coordinate;
+        coordinate.x = x;
+        coordinate.y = y;
+        return coordinate;
+    }
+
     // Sorts the heap from the top - the element in position 0. 
     // Generally called in the removeFirst method. 
     void sortDown(NodeHeap& heap) {
@@ -159,9 +166,7 @@ namespace NodeHeap {
 
     NodeHeap init(int rows, int columns) {
         NodeHeap heap;
-
         int** indices = new int* [rows];
-
         // Allocate memory for the arrays within the index array, 
         for (size_t x = 0; x < rows; x++) {
             indices[x] = new int[columns];
@@ -170,9 +175,7 @@ namespace NodeHeap {
                 indices[x][y] = -1;
             }
         }
-
         heap.indices = indices;
-
         return heap;
     }
 }

@@ -50,6 +50,8 @@ namespace NodeHeap {
     // the collection. The heap is then sorted again using the sortDown method. 
     Coordinates removeFirst(NodeHeap& heap);
 
+    Coordinates createCoordinates(int &&x, int &&y);
+
     // Checks whether an index is valid for a collection. 
     bool isInBounds(int index, int size);
     // Checks whether a node coordinate exists in the heap.
@@ -61,7 +63,7 @@ namespace NodeHeap {
     void updateHeap(NodeHeap& heap);
     // Prints all the indices registered in the heap (for debugging purposes). 
     void printIndices(NodeHeap& heap, int rows, int columns);
-
+    // Initialises a NodeHeap struct and allocated memory for the indices array.
     NodeHeap init(int rows, int columns);
 }
 
