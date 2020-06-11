@@ -182,5 +182,9 @@ namespace NodeHeap {
     bool operator==(const Coordinates& coordA, const Coordinates& coordB) {
         return coordA.x == coordB.x && coordA.y == coordB.y;
     }
+
+    bool operator!=(const Coordinates& coordA, const Coordinates& coordB) {
+        return coordA.x != coordB.x || coordA.y != coordB.y;
+    }
 }
 
