@@ -36,7 +36,7 @@ namespace NodeHeap {
 
     // Adds an element to the heap - allocates an index to the element
     // and then sorts the element based on the inputted fcost. 
-    void addElement(NodeHeap& heap, int fcost, int x, int y);
+    void addElement(NodeHeap& heap, int fcost, Coordinates coordinate);
 
     // Sorts the heap from the bottom - i.e the latest element inputted. Generally called in the
     // addElement method. 

@@ -11,7 +11,6 @@
 #include <string>
 #include "NodeHeap.h"
 #include <cmath>
-#include <map>
 
 const int MAX_COLUMNS = 10;
 
@@ -62,7 +61,7 @@ int main() {
 
     NodeHeap::Coordinates goal = NodeHeap::createCoordinates(4,8);
 
-    NodeHeap::addElement(heap, 0, 1, 1);
+    NodeHeap::addElement(heap, 0, NodeHeap::createCoordinates(1,1));
 
     size_t numDirections = 4;
 
@@ -88,39 +87,25 @@ int main() {
                     && world[coord_x][coord_y].find('-') == std::string::npos)
                     && !NodeHeap::contains(heap, coord_x, coord_y)
                     && !contains(closedSet, coord, nodes_visited)) {
+                    
                     int gCost = 1; 
                     int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
                     int fCost = gCost * hCost;
-                    NodeHeap::addElement(heap, fCost, coord_x, coord_y);
+
+                    NodeHeap::addElement(heap, fCost, coord);
                 }
             }
         }
 
-        world[currentCoord.x][currentCoord.y] = "x";
         closedSet[nodes_visited] = currentCoord;
         nodes_visited++;
+
         currentCoord = NodeHeap::removeFirst(heap);
     }
 
+
+
     printWorld(world, numberOfRows, numberOfColumns);
-
-    // ------------------------------------------------------
-    // ------------------- ALGORITHM ------------------------
-    // ------------------------------------------------------
-
-    /*
-        1. Define start and end points. 
-        2. Add the start node to the heap. 
-        3. Start the loop -> check if the current node is equal to the end node.
-            a. If current node == end node, then break. 
-            b. Else continue.
-        4. Get current node from top of heap.  
-        5. Get it's neighbours. 
-        6. Calculate their fcosts. 
-        7. Add them to the heap. 
-        8. Register current node as their parent. 
-        9. Keep going with the loop. 
-    */
 
     return 0;
 }

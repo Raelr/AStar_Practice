@@ -8,14 +8,11 @@
 namespace NodeHeap {
     // Adds an element to the heap - allocates an index to the element
     // and then sorts the element based on the inputted fcost. 
-    void addElement(NodeHeap& heap,int fcost, int x, int y) {
+    void addElement(NodeHeap& heap,int fcost, Coordinates coordinate) {
         // Add the node to the end of the heap. 
         heap.fCosts.emplace_back(fcost);
-        Coordinates newCoords;
-        newCoords.x = x;
-        newCoords.y = y;
-        heap.coordinates.emplace_back(newCoords);
-        heap.indices[x][y] = heap.coordinates.size() - 1;
+        heap.coordinates.emplace_back(coordinate);
+        heap.indices[coordinate.x][coordinate.y] = heap.coordinates.size() - 1;
         std::cout << "Added new element to heap! Heap is now size: " << heap.fCosts.size() 
                 << std::endl;
         // Sort the heap from the bottom. 
