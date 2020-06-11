@@ -72,8 +72,6 @@ namespace NodeHeap {
     NodeHeap init(int rows, int columns);
 
     bool operator==(const Coordinates&, const Coordinates&);
-
-    uint64_t hash(Coordinates const & c);
 }
 
 #endif

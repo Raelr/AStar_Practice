@@ -182,9 +182,5 @@ namespace NodeHeap {
     bool operator==(const Coordinates& coordA, const Coordinates& coordB) {
         return coordA.x == coordB.x && coordA.y == coordB.y;
     }
-
-    uint64_t hash(Coordinates const & c) {
-        return std::hash<int>()(c.x) * 31 + std::hash<int>()(c.y); 
-    }
 }
 
