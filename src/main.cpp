@@ -24,23 +24,21 @@ void printWorld(std::string world[][MAX_COLUMNS], int rows, int columns) {
     }
 }
 
-bool contains(NodeHeap::Coordinates* coords, NodeHeap::Coordinates coord, size_t size) {
-    for (size_t i = 0; i < size; i++) {
-        if (coords[i] == coord) {
-            return true;
-        }
-    }
-    return false;
+size_t get_single_coord(int x, int y) {
+    return (x * 10) + y;
 }
 
 int main() {
 
     // Define the number of rows and columns. 
-    size_t numberOfRows  = 6;
-    size_t numberOfColumns = 10;
+    const size_t numberOfRows  = 6;
+    const size_t numberOfColumns = 10;
+    const size_t numDirections = 4;
 
+    NodeHeap::NodeHeap heap = NodeHeap::init(numberOfRows, numberOfColumns);
+    
     // Keep in mind the world coordinates start on the top left. 
-    std::string world[6][10] = {
+    std::string world[numberOfRows][numberOfColumns] = {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"},
         {"|", " ", "|", " ", "|", " ", " ", " ", " ", "|"},
         {"|", " ", "|", " ", " ", " ", " ", " ", " ", "|"},
@@ -49,30 +47,24 @@ int main() {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
     };
 
-    NodeHeap::NodeHeap heap = NodeHeap::init(numberOfRows, numberOfColumns);
-
-    world[1][1] = "S";
-    world[4][8] = "E";
-
     printWorld(world, numberOfRows, numberOfColumns);
 
-    NodeHeap::Coordinates closedSet[numberOfRows * numberOfColumns];
-    size_t nodes_visited = 0;
-
-    NodeHeap::Coordinates goal = NodeHeap::createCoordinates(4,8);
-    NodeHeap::Coordinates start = NodeHeap::createCoordinates(1,1);
-    NodeHeap::addElement(heap, 0, start);
-
-    size_t numDirections = 4;
+    bool closedSet[numberOfRows * numberOfColumns] = {false};
 
     NodeHeap::Coordinates parents[numberOfRows][numberOfColumns];
-
+    
+    NodeHeap::Coordinates goal = NodeHeap::createCoordinates(4,8);
+    NodeHeap::Coordinates start = NodeHeap::createCoordinates(1,1);
+    world[start.x][start.y] = "S";
+    world[goal.x][goal.y] = "E";
+    
     NodeHeap::Coordinates directions[4] = {
         NodeHeap::createCoordinates(-1, 0), NodeHeap::createCoordinates(1, 0),
         NodeHeap::createCoordinates(0, -1), NodeHeap::createCoordinates(0, 1)};
 
-    NodeHeap::Coordinates currentCoord = NodeHeap::createCoordinates(0, 0);
+    NodeHeap::addElement(heap, 0, start);
 
+    NodeHeap::Coordinates currentCoord = NodeHeap::createCoordinates(0, 0);
     currentCoord = NodeHeap::removeFirst(heap);
 
     while (currentCoord != goal) {
@@ -88,21 +80,19 @@ int main() {
                 if ((world[coord_x][coord_y].find('|') == std::string::npos 
                     && world[coord_x][coord_y].find('-') == std::string::npos)
                     && !NodeHeap::contains(heap, coord_x, coord_y)
-                    && !contains(closedSet, coord, nodes_visited)) {
+                    && !closedSet[get_single_coord(coord_x, coord_y)]) {
                     
                     int gCost = 1; 
                     int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
                     int fCost = gCost * hCost;
 
-                    parents[coord_x][coord_y] = currentCoord;
-                    std::cout << parents[coord_x][coord_y].x << ", " << parents[coord_x][coord_y].y << std::endl;
+                    parents[coord_x][coord_y] = std::move(currentCoord);
                     NodeHeap::addElement(heap, fCost, coord);
                 }
             }
         }
 
-        closedSet[nodes_visited] = currentCoord;
-        nodes_visited++;
+        closedSet[get_single_coord(currentCoord.x, currentCoord.y)] = true;
 
         currentCoord = NodeHeap::removeFirst(heap);
     }
@@ -111,7 +101,6 @@ int main() {
 
     while (currentCoord != start) {
         world[currentCoord.x][currentCoord.y] = "x";
-        std::cout << currentCoord.x << ", " << currentCoord.y << std::endl;
         currentCoord = parents[currentCoord.x][currentCoord.y];
     }
 
