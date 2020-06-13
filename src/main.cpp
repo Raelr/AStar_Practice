@@ -60,10 +60,12 @@ int main() {
     size_t nodes_visited = 0;
 
     NodeHeap::Coordinates goal = NodeHeap::createCoordinates(4,8);
-
-    NodeHeap::addElement(heap, 0, NodeHeap::createCoordinates(1,1));
+    NodeHeap::Coordinates start = NodeHeap::createCoordinates(1,1);
+    NodeHeap::addElement(heap, 0, start);
 
     size_t numDirections = 4;
+
+    NodeHeap::Coordinates parents[numberOfRows][numberOfColumns];
 
     NodeHeap::Coordinates directions[4] = {
         NodeHeap::createCoordinates(-1, 0), NodeHeap::createCoordinates(1, 0),
@@ -92,6 +94,8 @@ int main() {
                     int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
                     int fCost = gCost * hCost;
 
+                    parents[coord_x][coord_y] = currentCoord;
+                    std::cout << parents[coord_x][coord_y].x << ", " << parents[coord_x][coord_y].y << std::endl;
                     NodeHeap::addElement(heap, fCost, coord);
                 }
             }
@@ -103,7 +107,13 @@ int main() {
         currentCoord = NodeHeap::removeFirst(heap);
     }
 
+    currentCoord = parents[goal.x][goal.y];
 
+    while (currentCoord != start) {
+        world[currentCoord.x][currentCoord.y] = "x";
+        std::cout << currentCoord.x << ", " << currentCoord.y << std::endl;
+        currentCoord = parents[currentCoord.x][currentCoord.y];
+    }
 
     printWorld(world, numberOfRows, numberOfColumns);
 

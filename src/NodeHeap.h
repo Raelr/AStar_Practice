@@ -74,6 +74,8 @@ namespace NodeHeap {
     bool operator==(const Coordinates&, const Coordinates&);
 
     bool operator!=(const Coordinates&, const Coordinates&);
+
+    bool operator<(const Coordinates&, const Coordinates&);
 }
 
 #endif
