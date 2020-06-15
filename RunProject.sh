@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./bin/Debug/HelloWorld 
+./bin/Debug/AStar

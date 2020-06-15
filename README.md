@@ -7,6 +7,21 @@ The implementation uses 2D arrays (as well as flattened 2D arrays) for its index
 ## Setup 
 
 This can be run using a number of methods:
-1. Build the program manually using your C++ compiler.
-2. Use Premake and your build system to run the program (This uses gmake)
-3. Run the provided bash (and bat) scripts.
+
+1. Use Premake and your build system to run the program (This uses gmake)
+2. Run the provided bash (and bat) scripts.
+3. Build the program manually using your C++ compiler.
+
+This setup guide will focus on options 1 and 2. 
+
+### Premake - Manual (MacOS and Linux)
+
+Run the following command:
+
+```
+premake/premake5 gmake2
+```
+
+You should see the output as follows: 
+
+

@@ -1,7 +1,7 @@
-workspace "HelloWorld"
+workspace "AStar"
    configurations { "Debug", "Release" }
 
-project "HelloWorld"
+project "AStar"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++17"
