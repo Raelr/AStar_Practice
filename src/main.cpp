@@ -12,6 +12,7 @@
 #include "NodeHeap.h"
 #include <cmath>
 
+// Constrains the world to only allowing 10 columns (at least for now)
 const int MAX_COLUMNS = 10;
 
 // Simply prints the world out. 
@@ -55,6 +56,8 @@ int main() {
     // Print the world so we can see it's starting state. 
     printWorld(world, numberOfRows, numberOfColumns);
 
+    // ----------------------- PREPARATION ----------------------------
+
     // Initialise the closed set (the vector storing all visited nodes)
     bool closedSet[numberOfRows * numberOfColumns] = {false};
 
@@ -73,48 +76,64 @@ int main() {
         NodeHeap::createCoordinates(-1, 0), NodeHeap::createCoordinates(1, 0),
         NodeHeap::createCoordinates(0, -1), NodeHeap::createCoordinates(0, 1)};
 
-    // Add the start node to the heap.
-    NodeHeap::addElement(heap, 0, start);
+    // Initialises the current coordinate to the start node. 
+    NodeHeap::Coordinates currentCoord = start;
 
-    NodeHeap::Coordinates currentCoord = NodeHeap::removeFirst(heap);
+    // --------------------------- ALGORITHM ----------------------------------
 
+    // Loop until we find the goal node.
     while (currentCoord != goal) {
+        // Check each direction that we specified.
         for (size_t i = 0; i < numDirections; i++) {
+            // Get the coordinate of the neighbour node. 
             int coord_x = currentCoord.x + directions[i].x;
             int coord_y = currentCoord.y + directions[i].y;
-
+            // Make sure the node is within the world bounds.
             if ((coord_x >= 0 || coord_x < numberOfColumns) 
                 && (coord_y >= 0 || coord_y < numberOfRows)) {
-                
-                NodeHeap::Coordinates coord = NodeHeap::createCoordinates(coord_x, coord_y);
-                
+                // Make sure the node isn't blocked (would be more complex if this were in
+                // an actual game)
                 if ((world[coord_x][coord_y].find('|') == std::string::npos 
                     && world[coord_x][coord_y].find('-') == std::string::npos)
+                    // Make sure the node doesn't already exist in the node heap.
                     && !NodeHeap::contains(heap, coord_x, coord_y)
+                    // Make sure the node hasn't already been processed.
                     && !closedSet[get_single_coord(coord_x, coord_y)]) {
                     
+                    // Calculate heuristic (using Manhatten Distance). 
                     int gCost = 1; 
                     int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
                     int fCost = gCost * hCost;
-
+                    // Set the neighbour's parent to the current node.
                     parents[get_single_coord(coord_x, coord_y)] = std::move(currentCoord);
-                    NodeHeap::addElement(heap, fCost, coord);
+                    // Add the neighbour to the heap for processing.
+                    NodeHeap::addElement(heap, fCost, NodeHeap::createCoordinates(coord_x, coord_y));
                 }
             }
         }
-
+        // Make sure we've set the current node as being processed.
         closedSet[get_single_coord(currentCoord.x, currentCoord.y)] = true;
-
+        // Remove the next element of the heap.
         currentCoord = NodeHeap::removeFirst(heap);
+        // Keep looping until we find the goal node.
     }
 
+    // Once we've found the end node, set the current coordinate to the parent of the end node 
+    // (we want the end node to remain untouched in this intance)
     currentCoord = parents[get_single_coord(goal.x, goal.y)];
 
+    // Now, iterate backward from the goal node until we reach the start node. 
     while (currentCoord != start) {
+        // Set the node to 'x' (to signify a movement in the path)
         world[currentCoord.x][currentCoord.y] = "x";
+        // Set the current coordinate to the parent of currentCoord. 
         currentCoord = parents[get_single_coord(currentCoord.x, currentCoord.y)];
+        // Keep iterating until we reach the start node.
     }
 
+    // ---------------------------- END OF ALGORITHM ----------------------------
+
+    // Finally, print the modified world (which should hopefully show the path)
     printWorld(world, numberOfRows, numberOfColumns);
 
     return 0;
