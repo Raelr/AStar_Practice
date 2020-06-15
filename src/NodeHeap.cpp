@@ -13,8 +13,8 @@ namespace NodeHeap {
         heap.fCosts.emplace_back(fcost);
         heap.coordinates.emplace_back(coordinate);
         heap.indices[coordinate.x][coordinate.y] = heap.coordinates.size() - 1;
-        std::cout << "Added new element to heap! Heap is now size: " << heap.fCosts.size() 
-                << std::endl;
+        //std::cout << "Added new element to heap! Heap is now size: " << heap.fCosts.size() 
+        //        << std::endl;
         // Sort the heap from the bottom. 
         sortUp(heap);
     }
@@ -45,15 +45,15 @@ namespace NodeHeap {
         // current element then swap their positions and indices. 
         
         int item_idx = heap.fCosts.size() - 1;
-        std::cout << "Start index: " << item_idx << std::endl;
+        //std::cout << "Start index: " << item_idx << std::endl;
         int parent_idx = (item_idx-1)/2;
-        std::cout << "Parent index: " << parent_idx << std::endl;
+        //std::cout << "Parent index: " << parent_idx << std::endl;
 
         while (true) {
             int item_cost = heap.fCosts[item_idx];
             int parent_cost = heap.fCosts[parent_idx];
             if (item_cost < parent_cost) {
-                std::cout << "The new item has a smaller fcost! Swapping values " << std::endl;
+                //std::cout << "The new item has a smaller fcost! Swapping values " << std::endl;
 
                 // Swap the values. 
                 std::iter_swap(heap.fCosts.begin() + item_idx, heap.fCosts.begin() + parent_idx);
@@ -87,16 +87,16 @@ namespace NodeHeap {
         heap.fCosts.front() = std::move(heap.fCosts.back());
         heap.fCosts.pop_back();
 
-        std::cout << "First element used to be: " << firstCoords.x << ", " 
-                << firstCoords.y << std::endl;
+        //std::cout << "First element used to be: " << firstCoords.x << ", " 
+        //        << firstCoords.y << std::endl;
 
-        std::cout << "coords is now size: " << heap.coordinates.size() << std::endl;
+        //std::cout << "coords is now size: " << heap.coordinates.size() << std::endl;
         
         // Sort from the top (since the last element has been placed at the front of the heap).
         sortDown(heap);
 
-        std::cout << "First element is now: " << heap.coordinates.front().x << ", " 
-                << heap.coordinates.front().y << std::endl;
+        //std::cout << "First element is now: " << heap.coordinates.front().x << ", " 
+        //        << heap.coordinates.front().y << std::endl;
 
         // return the first coordinates. 
         return firstCoords;

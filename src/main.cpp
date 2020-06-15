@@ -53,9 +53,6 @@ int main() {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
     };
 
-    // Print the world so we can see it's starting state. 
-    printWorld(world, numberOfRows, numberOfColumns);
-
     // ----------------------- PREPARATION ----------------------------
 
     // Initialise the closed set (the vector storing all visited nodes)
@@ -70,6 +67,10 @@ int main() {
     // Set the nodes to Start and End symbols (S and E). 
     world[start.x][start.y] = "S";
     world[goal.x][goal.y] = "E";
+
+    // Print the world so we can see it's starting state. 
+    std::cout << "STARTING WORLD STATE:" << std::endl;
+    printWorld(world, numberOfRows, numberOfColumns);
     
     // Define all the directions possible for the agent (for finding neighbours).
     NodeHeap::Coordinates directions[4] = {
@@ -134,6 +135,7 @@ int main() {
     // ---------------------------- END OF ALGORITHM ----------------------------
 
     // Finally, print the modified world (which should hopefully show the path)
+    std::cout << "ENDING WORLD STATE:" << std::endl;
     printWorld(world, numberOfRows, numberOfColumns);
 
     return 0;
