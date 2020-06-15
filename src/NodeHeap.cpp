@@ -102,6 +102,7 @@ namespace NodeHeap {
         return firstCoords;
     }
 
+    // Creates a Coordinates struct and returns it. 
     Coordinates createCoordinates(int x, int y) {
         Coordinates coordinate;
         coordinate.x = x;
@@ -161,6 +162,7 @@ namespace NodeHeap {
         }
     }
 
+    // Creates a statically sized NodeHeap.
     NodeHeap init(int rows, int columns) {
         NodeHeap heap;
         int** indices = new int* [rows];
@@ -175,6 +177,8 @@ namespace NodeHeap {
         heap.indices = indices;
         return heap;
     }
+
+    // Simple operators for comparisons.
 
     bool operator==(const Coordinates& coordA, const Coordinates& coordB) {
         return coordA.x == coordB.x && coordA.y == coordB.y;
