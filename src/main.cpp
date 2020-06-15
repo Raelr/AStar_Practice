@@ -14,6 +14,7 @@
 
 const int MAX_COLUMNS = 10;
 
+// Simply prints the world out. 
 void printWorld(std::string world[][MAX_COLUMNS], int rows, int columns) {
     for (size_t x = 0; x < rows; x++) {
         auto& row = world[x];
@@ -24,6 +25,7 @@ void printWorld(std::string world[][MAX_COLUMNS], int rows, int columns) {
     }
 }
 
+// This method returns the flattened index of a 2D array. 
 size_t get_single_coord(int x, int y) {
     return (x * 10) + y;
 }
@@ -33,8 +35,11 @@ int main() {
     // Define the number of rows and columns. 
     const size_t numberOfRows  = 6;
     const size_t numberOfColumns = 10;
+
+    // Define the number of directions the agent can move in (currently limited to four). 
     const size_t numDirections = 4;
 
+    // Initialise the nodeheap.
     NodeHeap::NodeHeap heap = NodeHeap::init(numberOfRows, numberOfColumns);
     
     // Keep in mind the world coordinates start on the top left. 
@@ -47,25 +52,31 @@ int main() {
         {"-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
     };
 
+    // Print the world so we can see it's starting state. 
     printWorld(world, numberOfRows, numberOfColumns);
 
+    // Initialise the closed set (the vector storing all visited nodes)
     bool closedSet[numberOfRows * numberOfColumns] = {false};
 
-    NodeHeap::Coordinates parents[numberOfRows][numberOfColumns];
+    // Initialise the vector that stores all parent nodes.
+    NodeHeap::Coordinates parents[numberOfRows * numberOfColumns];
     
+    // Initialise the start and end nodes. 
     NodeHeap::Coordinates goal = NodeHeap::createCoordinates(4,8);
     NodeHeap::Coordinates start = NodeHeap::createCoordinates(1,1);
+    // Set the nodes to Start and End symbols (S and E). 
     world[start.x][start.y] = "S";
     world[goal.x][goal.y] = "E";
     
+    // Define all the directions possible for the agent (for finding neighbours).
     NodeHeap::Coordinates directions[4] = {
         NodeHeap::createCoordinates(-1, 0), NodeHeap::createCoordinates(1, 0),
         NodeHeap::createCoordinates(0, -1), NodeHeap::createCoordinates(0, 1)};
 
+    // Add the start node to the heap.
     NodeHeap::addElement(heap, 0, start);
 
-    NodeHeap::Coordinates currentCoord = NodeHeap::createCoordinates(0, 0);
-    currentCoord = NodeHeap::removeFirst(heap);
+    NodeHeap::Coordinates currentCoord = NodeHeap::removeFirst(heap);
 
     while (currentCoord != goal) {
         for (size_t i = 0; i < numDirections; i++) {
@@ -86,7 +97,7 @@ int main() {
                     int hCost = (abs(coord_x - goal.x)) + abs(coord_y - goal.y);
                     int fCost = gCost * hCost;
 
-                    parents[coord_x][coord_y] = std::move(currentCoord);
+                    parents[get_single_coord(coord_x, coord_y)] = std::move(currentCoord);
                     NodeHeap::addElement(heap, fCost, coord);
                 }
             }
@@ -97,11 +108,11 @@ int main() {
         currentCoord = NodeHeap::removeFirst(heap);
     }
 
-    currentCoord = parents[goal.x][goal.y];
+    currentCoord = parents[get_single_coord(goal.x, goal.y)];
 
     while (currentCoord != start) {
         world[currentCoord.x][currentCoord.y] = "x";
-        currentCoord = parents[currentCoord.x][currentCoord.y];
+        currentCoord = parents[get_single_coord(currentCoord.x, currentCoord.y)];
     }
 
     printWorld(world, numberOfRows, numberOfColumns);

@@ -44,12 +44,12 @@ namespace NodeHeap {
 
     // Sorts the heap from the top - the element in position 0. 
     // Generally called in the removeFirst method. 
-    
     void sortDown(NodeHeap& heap);
     // Removes and returns the first element. The element is then replaced with the last element in 
     // the collection. The heap is then sorted again using the sortDown method. 
     Coordinates removeFirst(NodeHeap& heap);
     
+    // Simply returns a coordinates struct
     Coordinates createCoordinates(int x, int y);
     
     // Checks whether an index is valid for a collection. 
