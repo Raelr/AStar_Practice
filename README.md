@@ -66,3 +66,7 @@ ENDING WORLD STATE:
 ```
 
 If you saw that, you successfully ran the project! Please feel free to play around with the code!
+
+## License
+
+This project uses the MIT license.
